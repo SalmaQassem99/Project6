@@ -1,0 +1,526 @@
+*, html {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  outline: none;
+  border: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: Modak-Regular;
+  src: url("../fonts/Modak-Regular.ttf");
+}
+@font-face {
+  font-family: RammettoOne-Regular;
+  src: url("../fonts/RammettoOne-Regular.ttf");
+}
+@font-face {
+  font-family: NotoSansMalayalam-SemiBold;
+  src: url("../fonts/NotoSansMalayalam-SemiBold.ttf");
+}
+@font-face {
+  font-family: MochiyPopPOne-Regular;
+  src: url("../fonts/MochiyPopPOne-Regular.ttf");
+}
+@font-face {
+  font-family: LilitaOne-Regular;
+  src: url("../fonts/LilitaOne-Regular.ttf");
+}
+.game .board .img-wrapper::after, .game .board .img-wrapper::before {
+  content: "";
+  width: 106%;
+  height: 40%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.5);
+}
+
+.game .right-icons, .game .left-icons {
+  position: fixed;
+  top: 3%;
+}
+
+.game .right-icons .icon, .game .left-icons .icon {
+  width: 3rem;
+  height: 2.6rem;
+  background: linear-gradient(to bottom, #f8d258 2%, #f0b700);
+  color: #fff;
+  font-size: 1.5rem;
+  border: 0.25rem solid #55a7f3;
+  border-radius: 32%;
+  box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.5);
+}
+@media (min-width: 992px) {
+  .game .right-icons .icon, .game .left-icons .icon {
+    width: 4.5vw;
+    height: 4vw;
+    font-size: 2vw;
+  }
+}
+@media (min-width: 1200px) {
+  .game .right-icons .icon, .game .left-icons .icon {
+    width: 4vw;
+    height: 3.5vw;
+    font-size: 1.5vw;
+  }
+}
+@media (min-width: 1400px) {
+  .game .right-icons .icon, .game .left-icons .icon {
+    width: 3.2vw;
+    height: 2.9vw;
+    font-size: 1.2vw;
+    border: 0.2vw solid #55a7f3;
+    box-shadow: 0 0.2vw 0.2vw rgba(0, 0, 0, 0.5);
+  }
+}
+
+.game .tools-wrapper .tools-items .tool.eraser .eraser-sizes, .game .tools-wrapper .tools-items .tool.pencil .sizes {
+  width: 22vw;
+  height: 8vh;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, -0.5rem);
+  z-index: -1;
+  gap: 0.75vw;
+  background-color: #d1e8b0;
+  border-radius: 2vw 2vw 0 0;
+}
+.game .tools-wrapper .tools-items .tool.eraser .show.eraser-sizes, .game .tools-wrapper .tools-items .tool.pencil .show.sizes {
+  display: flex;
+}
+@media (min-width: 576px) {
+  .game .tools-wrapper .tools-items .tool.eraser .eraser-sizes, .game .tools-wrapper .tools-items .tool.pencil .sizes {
+    width: 20vw;
+    gap: 0.5rem;
+    padding: 0.8vw;
+  }
+}
+@media (min-width: 992px) {
+  .game .tools-wrapper .tools-items .tool.eraser .eraser-sizes, .game .tools-wrapper .tools-items .tool.pencil .sizes {
+    width: 15vw;
+    padding: 0.5vw;
+  }
+}
+@media (min-width: 1200px) {
+  .game .tools-wrapper .tools-items .tool.eraser .eraser-sizes, .game .tools-wrapper .tools-items .tool.pencil .sizes {
+    width: 12vw;
+    height: 10vh;
+  }
+}
+
+.game .tools-wrapper .tools-items .tool.eraser .eraser-sizes .btn-wrapper, .game .tools-wrapper .tools-items .tool.pencil .sizes .size-btn {
+  width: calc((100% - 3vw) / 5);
+}
+@media (min-width: 576px) {
+  .game .tools-wrapper .tools-items .tool.eraser .eraser-sizes .btn-wrapper, .game .tools-wrapper .tools-items .tool.pencil .sizes .size-btn {
+    width: calc((100% - 2rem) / 5);
+  }
+}
+
+.overlay, .success-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.game {
+  width: 100vw;
+  height: 100vh;
+  padding: 2vw;
+  position: relative;
+  z-index: 1;
+  background-image: url("../media/images/background.svg");
+  background-size: cover;
+}
+.game .left-icons {
+  left: 3%;
+}
+.game .right-icons {
+  right: 3%;
+}
+.game .right-icons .icon.music {
+  background: linear-gradient(5deg, #f00f55 40%, #ee3f6c 40% 100%);
+}
+.game .board .arrow {
+  width: 6.25vw;
+  height: 8vw;
+  border-radius: 1.25rem;
+  font-size: 4vw;
+  background-color: #fff;
+  box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.5);
+}
+@media (min-width: 768px) {
+  .game .board .arrow {
+    width: 5.25vw;
+    height: 7vw;
+    font-size: 3.5vw;
+  }
+}
+@media (min-width: 992px) {
+  .game .board .arrow {
+    width: 4.25vw;
+    height: 6vw;
+    font-size: 3vw;
+    border-radius: 1.4vw;
+  }
+}
+.game .board .arrow .fa-solid {
+  filter: drop-shadow(0 0.25rem 0.25rem rgba(0, 0, 0, 0.5));
+}
+.game .board .arrow.disabled {
+  color: #777777;
+}
+.game .board .img-wrapper {
+  width: 55vw;
+  height: 60vh;
+  margin: 3% auto;
+  position: relative;
+  background-color: #fff;
+  border-radius: 2vw;
+}
+.game .board .img-wrapper::before {
+  top: -6%;
+  background-color: #55a7f3;
+}
+.game .board .img-wrapper::after {
+  bottom: -6%;
+  left: 50%;
+  background-image: linear-gradient(to bottom, #55a7f3 63%, #03315b);
+}
+.game .board .img-wrapper svg {
+  width: 100%;
+  height: 100%;
+  /*&.active-erase {
+    cursor: url("https://icons.iconarchive.com/icons/designcontest/outline/16/Eraser-icon.png"),
+      default;
+  }
+  &.active-brush {
+    cursor: url("https://icons.iconarchive.com/icons/icons8/ios7/48/Editing-Brush-icon.png"),
+      default;
+  }*/
+}
+.game .tools-wrapper {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: #fff;
+  border-radius: 2vw;
+  box-shadow: -0.25rem -0.25rem 0.25rem 0 #a0e3fb;
+}
+.game .tools-wrapper .tools-items {
+  background-color: #fff;
+}
+.game .tools-wrapper .tools-items .tool {
+  width: 12vw;
+  height: 12vw;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+@media (min-width: 576px) {
+  .game .tools-wrapper .tools-items .tool {
+    width: 10vw;
+    height: 10vw;
+  }
+}
+@media (min-width: 992px) {
+  .game .tools-wrapper .tools-items .tool {
+    width: 7vw;
+    height: 7vw;
+  }
+}
+@media (min-width: 1200px) {
+  .game .tools-wrapper .tools-items .tool {
+    width: 6vw;
+    height: 6vw;
+  }
+}
+.game .tools-wrapper .tools-items .tool .vector {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+.game .tools-wrapper .tools-items .tool.pencil {
+  position: relative;
+}
+.game .tools-wrapper .tools-items .tool.pencil .sizes.show {
+  display: flex;
+}
+.game .tools-wrapper .tools-items .tool.eraser {
+  position: relative;
+}
+.game .tools-wrapper .tools-items .tool.eraser .eraser-sizes .btn-wrapper .eraser-size {
+  aspect-ratio: 1;
+  background-color: #fff;
+}
+.game .tools-wrapper .tools-items .tool.eraser .eraser-sizes .btn-wrapper:nth-of-type(1) .eraser-size {
+  width: 40%;
+}
+.game .tools-wrapper .tools-items .tool.eraser .eraser-sizes .btn-wrapper:nth-of-type(2) .eraser-size {
+  width: 55%;
+}
+.game .tools-wrapper .tools-items .tool.eraser .eraser-sizes .btn-wrapper:nth-of-type(3) .eraser-size {
+  width: 70%;
+}
+.game .tools-wrapper .tools-items .tool.eraser .eraser-sizes .btn-wrapper:nth-of-type(4) .eraser-size {
+  width: 85%;
+}
+.game .tools-wrapper .tools-items .tool.eraser .eraser-sizes .btn-wrapper:nth-of-type(5) .eraser-size {
+  width: 100%;
+}
+.game .tools-wrapper .options {
+  padding: 3.25vw 2.5vw;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateY(-100%);
+  background-color: rgba(199, 227, 107, 0.5);
+}
+@media (min-width: 768px) {
+  .game .tools-wrapper .options {
+    padding: 3vw 1.5vw;
+  }
+}
+@media (min-width: 992px) {
+  .game .tools-wrapper .options {
+    padding: 3vw 1vw;
+  }
+}
+.game .tools-wrapper .options .option {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 2vw;
+  position: relative;
+  font-size: 1.5rem;
+  color: #fff;
+  background-color: #5c94ff;
+  border: 0.1875rem solid #ded0f2;
+  outline: 0.1875rem solid #5c94ff;
+  box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.5);
+}
+.game .tools-wrapper .options .option .fa-solid {
+  position: absolute;
+  z-index: 2;
+}
+.game .tools-wrapper .options .option .option-vector {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  background-color: rgb(125, 169, 255);
+  border-radius: 80% 55% 75% 60%;
+}
+@media (min-width: 768px) {
+  .game .tools-wrapper .options .option {
+    width: 5.75vw;
+    height: 5.75vw;
+    font-size: 3vw;
+    border-width: 0.375vw;
+    outline-width: 0.375vw;
+  }
+}
+@media (min-width: 992px) {
+  .game .tools-wrapper .options .option {
+    width: 4.75vw;
+    height: 4.75vw;
+    font-size: 2vw;
+    border-width: 0.3vw;
+    outline-width: 0.3vw;
+  }
+}
+@media (min-width: 1200px) {
+  .game .tools-wrapper .options .option {
+    width: 1vw;
+    height: 1vw;
+  }
+}
+.game .colors {
+  display: none;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: #ffeac0;
+  box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.5);
+}
+.game .colors.show {
+  display: flex;
+}
+.game .colors .color {
+  width: 5vw;
+  height: 5vw;
+  box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.5);
+  transition: 0.2s;
+}
+.game .colors .color.selected {
+  outline: 0.3vw solid #55a7f3;
+}
+@media (min-width: 576px) {
+  .game .colors .color {
+    width: 4vw;
+    height: 4vw;
+  }
+}
+@media (min-width: 768px) {
+  .game .colors .color {
+    width: 4vw;
+    height: 4vw;
+  }
+}
+@media (min-width: 992px) {
+  .game .colors .color {
+    width: 3vw;
+    height: 3vw;
+  }
+}
+
+.success-card {
+  width: 70%;
+  transform: translate(-50%, 50%);
+  z-index: 999999;
+  visibility: hidden;
+  transition: 0.4s;
+  background: linear-gradient(180deg, #f3f2f0 33.31%, #febf47 117.3%);
+}
+.success-card .closeModal {
+  width: 10vw;
+  height: 10vw;
+  position: absolute;
+  right: -5%;
+  top: 0;
+  transform: translateY(-36%);
+  background-color: #fdc927;
+  color: #fff;
+  font-size: 4vw;
+}
+@media (min-width: 576px) {
+  .success-card .closeModal {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 768px) {
+  .success-card {
+    width: 31.1885rem;
+  }
+}
+.success-card .card-wrapper {
+  background: linear-gradient(0deg, #fce07f 10.87%, #ffffff 124.72%);
+}
+.success-card .card-wrapper .img-wrapper {
+  width: 70%;
+  margin: 0 auto;
+  position: relative;
+  top: -3vh;
+}
+.success-card .card-wrapper .outer-card {
+  background-color: #fdc927;
+}
+.success-card .card-wrapper .outer-card .text-card {
+  background: linear-gradient(rgba(253, 238, 206, 0.5019607843) 0%, rgba(253, 238, 206, 0.5019607843) 40%, transparent 40%, transparent 60%, rgba(253, 238, 206, 0.5019607843) 60%, rgba(253, 238, 206, 0.5019607843) 100%);
+  transform: rotate(-1deg);
+  color: #282828;
+  font-size: 5vw;
+  text-transform: capitalize;
+  font-family: LilitaOne-Regular;
+  font-weight: bold;
+}
+@media (min-width: 576px) {
+  .success-card .card-wrapper .outer-card .text-card {
+    font-size: 1.5rem;
+  }
+}
+.success-card .card-wrapper .outer-card .text-card .content span {
+  -webkit-text-stroke: 0.1px #fff;
+}
+.success-card .card-wrapper .outer-card .text-card .content .score-text {
+  font-size: 4vw;
+}
+@media (min-width: 576px) {
+  .success-card .card-wrapper .outer-card .text-card .content .score-text {
+    font-size: 1.5rem;
+  }
+}
+.success-card .card-wrapper .outer-card .text-card .score-icon-wrapper {
+  width: 10vw;
+}
+@media (min-width: 768px) {
+  .success-card .card-wrapper .outer-card .text-card .score-icon-wrapper {
+    width: 5.03044rem;
+  }
+}
+.success-card .card-wrapper .arrows .arrow {
+  width: 10vw;
+  padding: 1.5rem 0.75rem;
+  background-color: #b6e7ff;
+  color: #282828;
+  font-size: 5vw;
+  border-radius: 1.25rem;
+  box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+}
+@media (min-width: 576px) {
+  .success-card .card-wrapper .arrows .arrow {
+    width: 3.1875rem;
+    font-size: 2rem;
+  }
+}
+.success-card .card-wrapper .arrows .arrow .fa-solid {
+  filter: drop-shadow(0 0.25rem 0.25rem rgba(0, 0, 0, 0.25));
+}
+.success-card.show {
+  visibility: visible;
+  transform: translate(-50%, -50%);
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  background-color: rgba(0, 0, 0, 0.4);
+  visibility: hidden;
+}
+.overlay.show {
+  visibility: visible;
+}/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,593 @@
+@use "./variables/colors" as *;
+@use "./variables/mediaQuery" as *;
+@use "./mixins" as *;
+@use "./fonts" as *;
+$radius: 2vw;
+$padding-x: 0.5rem;
+
+%child {
+  content: "";
+  width: 106%;
+  height: 40%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 0.25rem 0.25rem 0 $shadow;
+}
+
+%icons {
+  position: fixed;
+  top: 3%;
+}
+
+%icon {
+  width: 3rem;
+  height: 2.6rem;
+  background: linear-gradient(to bottom, $yellow-2 2%, $yellow-1);
+  color: $white-1;
+  font-size: 1.5rem;
+  border: 0.25rem solid $blue-1;
+  border-radius: 32%;
+  box-shadow: 0 0.25rem 0.25rem $shadow;
+
+  @include mediaQuery($largeScreen_min_width) {
+    & {
+      width: 4.5vw;
+      height: 4vw;
+      font-size: 2vw;
+    }
+  }
+
+  @include mediaQuery($XlargeScreen_min_width) {
+    & {
+      width: 4vw;
+      height: 3.5vw;
+      font-size: 1.5vw;
+    }
+  }
+
+  @include mediaQuery($XXlargeScreen_min_width) {
+    & {
+      width: 3.2vw;
+      height: 2.9vw;
+      font-size: 1.2vw;
+      border: 0.2vw solid $blue-1;
+      box-shadow: 0 0.2vw 0.2vw $shadow;
+    }
+  }
+}
+
+%sizes {
+  width: 22vw;
+  height: 8vh;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, -$padding-x);
+  z-index: -1;
+  gap: 0.75vw;
+  background-color: $green-1;
+  border-radius: 2vw 2vw 0 0;
+
+  &.show {
+    display: flex;
+  }
+
+  @include mediaQuery($smallScreen_min_width) {
+    & {
+      width: 20vw;
+      gap: 0.5rem;
+      padding: 0.8vw;
+    }
+  }
+
+  @include mediaQuery($largeScreen_min_width) {
+    & {
+      width: 15vw;
+      padding: 0.5vw;
+    }
+  }
+
+  @include mediaQuery($XlargeScreen_min_width) {
+    & {
+      width: 12vw;
+      height: 10vh;
+    }
+  }
+}
+
+%sizes-btn {
+  width: calc((100% - (4 * 0.75vw)) / 5);
+
+  @include mediaQuery($smallScreen_min_width) {
+    & {
+      width: calc((100% - (4 * 0.5rem)) / 5);
+    }
+  }
+}
+
+%fixed-position {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.game {
+  width: 100vw;
+  height: 100vh;
+  padding: 2vw;
+  position: relative;
+  z-index: 1;
+  background-image: url("../media/images/background.svg");
+  background-size: cover;
+
+  .left-icons {
+    @extend %icons;
+    left: 3%;
+
+    .icon {
+      @extend %icon;
+    }
+  }
+
+  .right-icons {
+    @extend %icons;
+    right: 3%;
+
+    .icon {
+      @extend %icon;
+
+      &.music {
+        background: linear-gradient(5deg, $pink-2 40%, $pink-3 40% 100%);
+      }
+    }
+  }
+
+  .board {
+    .arrow {
+      width: 6.25vw;
+      height: 8vw;
+      border-radius: 1.25rem;
+      font-size: 4vw;
+      background-color: $white-1;
+      box-shadow: 0 0.25rem 0.25rem $shadow;
+
+      @include mediaQuery($medScreen_min_width) {
+        & {
+          width: 5.25vw;
+          height: 7vw;
+          font-size: 3.5vw;
+        }
+      }
+
+      @include mediaQuery($largeScreen_min_width) {
+        & {
+          width: 4.25vw;
+          height: 6vw;
+          font-size: 3vw;
+          border-radius: 1.4vw;
+        }
+      }
+
+      .fa-solid {
+        filter: drop-shadow(0 0.25rem 0.25rem $shadow);
+      }
+
+      &.disabled {
+        color: $grey-1;
+      }
+    }
+
+    .img-wrapper {
+      width: 55vw;
+      height: 60vh;
+      margin: 3% auto;
+      position: relative;
+      background-color: $white-1;
+      border-radius: $radius;
+
+      &::before {
+        @extend %child;
+        top: -6%;
+        background-color: $blue-1;
+      }
+
+      &::after {
+        @extend %child;
+        bottom: -6%;
+        left: 50%;
+        background-image: linear-gradient(to bottom, $blue-1 63%, $blue-2);
+      }
+
+      svg {
+        width: 100%;
+        height: 100%;
+        /*&.active-erase {
+          cursor: url("https://icons.iconarchive.com/icons/designcontest/outline/16/Eraser-icon.png"),
+            default;
+        }
+        &.active-brush {
+          cursor: url("https://icons.iconarchive.com/icons/icons8/ios7/48/Editing-Brush-icon.png"),
+            default;
+        }*/
+      }
+    }
+  }
+
+  .tools-wrapper {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: $white-1;
+    border-radius: $radius;
+    box-shadow: -0.25rem -0.25rem 0.25rem 0 $blue-3;
+
+    .tools-items {
+      background-color: $white-1;
+
+      .tool {
+        width: 12vw;
+        height: 12vw;
+        position: relative;
+        z-index: 1;
+        cursor: pointer;
+
+        @include mediaQuery($smallScreen_min_width) {
+          & {
+            width: 10vw;
+            height: 10vw;
+          }
+        }
+
+        @include mediaQuery($largeScreen_min_width) {
+          & {
+            width: 7vw;
+            height: 7vw;
+          }
+        }
+
+        @include mediaQuery($XlargeScreen_min_width) {
+          & {
+            width: 6vw;
+            height: 6vw;
+          }
+        }
+
+        .vector {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          z-index: -1;
+        }
+
+        &.pencil {
+          position: relative;
+
+          .sizes {
+            @extend %sizes;
+
+            &.show {
+              display: flex;
+            }
+
+            .size-btn {
+              @extend %sizes-btn;
+            }
+          }
+        }
+
+        &.eraser {
+          position: relative;
+
+          .eraser-sizes {
+            @extend %sizes;
+
+            .btn-wrapper {
+              @extend %sizes-btn;
+
+              .eraser-size {
+                aspect-ratio: 1;
+                background-color: $white-1;
+              }
+
+              &:nth-of-type(1) {
+                .eraser-size {
+                  width: 40%;
+                }
+              }
+
+              &:nth-of-type(2) {
+                .eraser-size {
+                  width: 55%;
+                }
+              }
+
+              &:nth-of-type(3) {
+                .eraser-size {
+                  width: 70%;
+                }
+              }
+
+              &:nth-of-type(4) {
+                .eraser-size {
+                  width: 85%;
+                }
+              }
+
+              &:nth-of-type(5) {
+                .eraser-size {
+                  width: 100%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .options {
+      padding: 3.25vw 2.5vw;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translateY(-100%);
+      background-color: $green-2;
+
+      @include mediaQuery($medScreen_min_width) {
+        & {
+          padding: 3vw 1.5vw;
+        }
+      }
+
+      @include mediaQuery($largeScreen_min_width) {
+        & {
+          padding: 3vw 1vw;
+        }
+      }
+
+      .option {
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: 2vw;
+        position: relative;
+        font-size: 1.5rem;
+        color: $white-1;
+        background-color: $blue-4;
+        border: 0.1875rem solid $grey-2;
+        outline: 0.1875rem solid $blue-4;
+        box-shadow: 0 0.25rem 0.25rem 0 $shadow;
+
+        .fa-solid {
+          position: absolute;
+          z-index: 2;
+        }
+
+        .option-vector {
+          width: 80%;
+          height: 80%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          z-index: 1;
+          transform: translate(-50%, -50%);
+          background-color: $blue-5;
+          border-radius: 80% 55% 75% 60%;
+        }
+
+        @include mediaQuery($medScreen_min_width) {
+          & {
+            width: 5.75vw;
+            height: 5.75vw;
+            font-size: 3vw;
+            border-width: 0.375vw;
+            outline-width: 0.375vw;
+          }
+        }
+
+        @include mediaQuery($largeScreen_min_width) {
+          & {
+            width: 4.75vw;
+            height: 4.75vw;
+            font-size: 2vw;
+            border-width: 0.3vw;
+            outline-width: 0.3vw;
+          }
+        }
+
+        @include mediaQuery($XlargeScreen_min_width) {
+          & {
+            width: 1vw;
+            height: 1vw;
+          }
+        }
+      }
+    }
+  }
+
+  .colors {
+    display: none;
+    height: fit-content;
+    background-color: $pink-1;
+    box-shadow: 0 0.25rem 0.25rem 0 $shadow;
+
+    &.show {
+      display: flex;
+    }
+
+    .color {
+      width: 5vw;
+      height: 5vw;
+      box-shadow: 0 0.25rem 0.25rem 0 $shadow;
+      transition: 0.2s;
+
+      &.selected {
+        outline: 0.3vw solid $blue-1;
+      }
+
+      @include mediaQuery($smallScreen_min_width) {
+        & {
+          width: 4vw;
+          height: 4vw;
+        }
+      }
+
+      @include mediaQuery($medScreen_min_width) {
+        & {
+          width: 4vw;
+          height: 4vw;
+        }
+      }
+
+      @include mediaQuery($largeScreen_min_width) {
+        & {
+          width: 3vw;
+          height: 3vw;
+        }
+      }
+    }
+  }
+}
+
+.success-card {
+  width: 70%;
+  @extend %fixed-position;
+  transform: translate(-50%, 50%);
+  z-index: 999999;
+  visibility: hidden;
+  transition: 0.4s;
+  background: linear-gradient(180deg, #f3f2f0 33.31%, #febf47 117.3%);
+
+  .closeModal {
+    width: 10vw;
+    height: 10vw;
+    position: absolute;
+    right: -5%;
+    top: 0;
+    transform: translateY(-36%);
+    background-color: $orange-1;
+    color: $white-1;
+    font-size: 4vw;
+
+    @include mediaQuery($smallScreen_min_width) {
+      & {
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  @include mediaQuery($medScreen_min_width) {
+    & {
+      width: 31.1885rem;
+    }
+  }
+
+  .card-wrapper {
+    background: linear-gradient(0deg, #fce07f 10.87%, #ffffff 124.72%);
+
+    .img-wrapper {
+      width: 70%;
+      margin: 0 auto;
+      position: relative;
+      top: -3vh;
+    }
+
+    .outer-card {
+      background-color: $orange-1;
+
+      .text-card {
+        background: linear-gradient(#fdeece80 0%,
+            #fdeece80 40%,
+            transparent 40%,
+            transparent 60%,
+            #fdeece80 60%,
+            #fdeece80 100%);
+        transform: rotate(-1deg);
+        color: $black-1;
+        font-size: 5vw;
+        text-transform: capitalize;
+        font-family: LilitaOne-Regular;
+        font-weight: bold;
+
+        @include mediaQuery($smallScreen_min_width) {
+          font-size: 1.5rem;
+        }
+
+        .content {
+          span {
+            -webkit-text-stroke: 0.1px $white-1;
+          }
+
+          .score-text {
+            font-size: 4vw;
+
+            @include mediaQuery($smallScreen_min_width) {
+              font-size: 1.5rem;
+            }
+          }
+        }
+
+        .score-icon-wrapper {
+          width: 10vw;
+
+          @include mediaQuery($medScreen_min_width) {
+            & {
+              width: 5.03044rem;
+            }
+          }
+        }
+      }
+    }
+
+    .arrows {
+      .arrow {
+        width: 10vw;
+        padding: 1.5rem 0.75rem;
+        background-color: $blue-6;
+        color: $black-1;
+        font-size: 5vw;
+        border-radius: 1.25rem;
+        box-shadow: 0 0.25rem 0.25rem 0 $shadow-1;
+
+        @include mediaQuery($smallScreen_min_width) {
+          & {
+            width: 3.1875rem;
+            font-size: 2rem;
+          }
+        }
+
+        .fa-solid {
+          filter: drop-shadow(0 0.25rem 0.25rem $shadow-1);
+        }
+      }
+    }
+  }
+
+  &.show {
+    visibility: visible;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  @extend %fixed-position;
+  z-index: 10000;
+  background-color: $overlay;
+  visibility: hidden;
+
+  &.show {
+    visibility: visible;
+  }
+}
